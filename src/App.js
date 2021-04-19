@@ -19,11 +19,11 @@ class App extends React.Component {
     const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchQuery}&format=json`;
     const resp = await axios.get(API);
     console.log(resp.data[0]);
-    // const url = 
     this.setState({ location: resp.data[0] });
   };
 
   render() {
+    const img_url = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.location.lat},${this.state.location.lon}&size=${window.innerWidth}x300&format=jpg&zoom=12`;
     return (
       <Container flex>
         <Form>
@@ -39,9 +39,10 @@ class App extends React.Component {
             Explore
           </Button>
         </Form>
-        <img src="https://www.placecage.com/gif/200/300" alt="Placecage" />
+        
         {this.state.location.place_id && (
           <>
+            <img src={img_url} alt="Map" />
             <h2>The city is: {this.state.location.display_name}</h2>
             <h2>lat: {this.state.location.lat}</h2>
             <h2>lon: {this.state.location.lon}</h2>
