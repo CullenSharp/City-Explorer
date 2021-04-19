@@ -2,6 +2,11 @@ import React from "react";
 import { Container, Form, Button, Card, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import { faAngry } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+//<FontAwesomeIcon icon={faAngry} style={{color: "red"}}/>
+//store for later
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +14,6 @@ class App extends React.Component {
     this.state = {
       searchQuery: "",
       location: {},
-      url: "",
     };
   }
 
@@ -20,6 +24,7 @@ class App extends React.Component {
     const resp = await axios.get(API);
     console.log(resp.data[0]);
     this.setState({ location: resp.data[0] });
+    console.log(this.state.searchQuery);
   };
 
   render() {
@@ -51,19 +56,33 @@ class App extends React.Component {
             </Button>
           </Form>
         </Navbar>
-        {this.state.location.place_id && (
-          <Card style={{ minWidth: "18rem" }}>
-            <Card.Img variant="top" src={img_url} alt="Map" />
-            <Card.Body>
-              <Card.Title>{this.state.location.display_name}</Card.Title>
-              <Card.Text>
-                lat: {this.state.location.lat}
-                <br></br>
-                lon: {this.state.location.lon}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        )}
+        {this.state.location.place_id &&
+          (this.state.searchQuery !== "" ? (
+            <Card style={{ minWidth: "18rem" }}>
+              <Card.Img variant="top" src={img_url} alt="Map" />
+              <Card.Body>
+                <Card.Title>{this.state.location.display_name}</Card.Title>
+                <Card.Text>
+                  lat: {this.state.location.lat}
+                  <br></br>
+                  lon: {this.state.location.lon}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          ) : (
+            <Card style={{ minWidth: "18rem" }}>
+              <Card.Body>
+                <Card.Title>
+                  <FontAwesomeIcon
+                    icon={faAngry}
+                    style={{ color: "red" }}
+                    className="mr-auto"
+                  />
+                  Ooops no image
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          ))}
       </Container>
     );
   }
