@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import ListGroup from 'react-bootstrap/ListGroup'
 import { faCloudSunRain } from "@fortawesome/free-solid-svg-icons";
