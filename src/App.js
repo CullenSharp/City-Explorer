@@ -14,17 +14,20 @@ class App extends React.Component {
     this.state = {
       searchQuery: "",
       location: {},
+      error: {},
     };
   }
 
   getLocation = async (e) => {
+    try {
     e.preventDefault();
 
     const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchQuery}&format=json`;
     const resp = await axios.get(API);
-    console.log(resp.data[0]);
     this.setState({ location: resp.data[0] });
-    console.log(this.state.searchQuery);
+    } catch(error){
+      this.setState({error});
+    }
   };
 
   render() {
@@ -56,8 +59,24 @@ class App extends React.Component {
             </Button>
           </Form>
         </Navbar>
-        {this.state.location.place_id &&
-          (this.state.searchQuery !== "" ? (
+        {this.state.error.message && (
+          <Card style={{ minWidth: "18rem" }}>
+          <Card.Body>
+            <Card.Title>
+              <FontAwesomeIcon
+                icon={faAngry}
+                style={{ color: "red" }}
+                className="mr-auto"
+              />
+              Ooops, we're having trouble with your request
+            </Card.Title>
+            <Card.Text>
+              {this.state.error.message}
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        )}
+        {this.state.location.place_id && (
             <Card style={{ minWidth: "18rem" }}>
               <Card.Img variant="top" src={img_url} alt="Map" />
               <Card.Body>
@@ -69,20 +88,7 @@ class App extends React.Component {
                 </Card.Text>
               </Card.Body>
             </Card>
-          ) : (
-            <Card style={{ minWidth: "18rem" }}>
-              <Card.Body>
-                <Card.Title>
-                  <FontAwesomeIcon
-                    icon={faAngry}
-                    style={{ color: "red" }}
-                    className="mr-auto"
-                  />
-                  Ooops no image
-                </Card.Title>
-              </Card.Body>
-            </Card>
-          ))}
+        )}
       </Container>
     );
   }
