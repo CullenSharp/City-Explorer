@@ -34,7 +34,7 @@ class App extends React.Component {
 
       this.setState({
         location: resp.data[0],
-        weather: `${weatherResp.data[0].date}: ${weatherResp.data[0].description}`,
+        weather: weatherResp,
         isError: false,
       });
     } catch (error) {
