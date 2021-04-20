@@ -1,9 +1,10 @@
 import React from "react";
-import { Container, Form, Button, Card, Navbar } from "react-bootstrap";
+import { Container, Form, Button, Card, Navbar, ListGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { faAngry } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Weather from "./Weather.js";
 
 //<FontAwesomeIcon icon={faAngry} style={{color: "red"}}/>
 //store for later
@@ -103,6 +104,12 @@ class App extends React.Component {
                 lat: {this.state.location.lat}
                 <br></br>
                 lon: {this.state.location.lon}
+                <br></br>
+                <ul> Weather:
+                {
+                  this.state.weather.data.map(value => <Weather data={value}></Weather>)
+                }
+                </ul>
               </Card.Text>
             </Card.Body>
           </Card>
