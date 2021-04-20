@@ -31,11 +31,11 @@ Thank you to JB Tellez, Tim Egorov, and Hunter Britten.
 
 ## Time Estimates
 
-Name of feature: Locations
+Name of feature: Weather api implementation
 
-Estimate of time needed to complete: 1hr
+Estimate of time needed to complete: 1:30hr
 
-Start time: 14:30
+Start time: 15:46
 
 Finish time:
 
