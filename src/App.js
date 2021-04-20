@@ -45,7 +45,7 @@ class App extends React.Component {
         <Navbar
           bg="light"
           expand="lg"
-          className="justify-content-md-space-between"
+          className="justify-content-md-space-between-mr-sm-2"
         >
           <Navbar.Brand>City Explorer</Navbar.Brand>
           <Form inline>
@@ -68,12 +68,17 @@ class App extends React.Component {
         </Navbar>
         {this.state.isError === true && (
           <Card style={{ minWidth: "18rem" }}>
+            <Card.Img
+              variant="top"
+              src={`https://www.placecage.com/gif/${window.innerWidth}/300`}
+              alt="Error cage"
+            />
             <Card.Body>
               <Card.Title>
                 <FontAwesomeIcon
                   icon={faAngry}
                   style={{ color: "red" }}
-                  className="mr-auto"
+                  className="mr-sm-2"
                 />
                 Ooops, we're having trouble with your request
               </Card.Title>

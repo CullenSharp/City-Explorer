@@ -7,6 +7,8 @@
 
 ![WRRC flow chart](src/assets/CityExplorerWRRC.JPG)
 
+![weather flow](src/assets/flow.png)
+
 An app that displays information about a city and its location when the user searches for a city by name.
 
 ## Getting Started
