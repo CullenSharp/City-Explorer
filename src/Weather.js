@@ -2,16 +2,18 @@
 
 import React from 'react';
 
-export default class Weather extends React.Component {
+class Weather extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         return(
-            <>
+            <li>
             {`${this.props.data.date}: ${this.props.data.description}`}
-            </>
+            </li>
         );
     }
 } 
+
+export default Weather;
