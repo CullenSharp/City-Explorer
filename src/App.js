@@ -101,15 +101,13 @@ class App extends React.Component {
             <Card.Body>
               <Card.Title>{this.state.location.display_name}</Card.Title>
               <Card.Text>
-                lat: {this.state.location.lat}
+                lat: {this.state.location.lat} lon: {this.state.location.lon}
                 <br></br>
-                lon: {this.state.location.lon}
-                <br></br>
-                <ul> Weather:
+                <ListGroup> 
                 {
                   this.state.weather.data.map(value => <Weather data={value}></Weather>)
                 }
-                </ul>
+                </ListGroup>
               </Card.Text>
             </Card.Body>
           </Card>
