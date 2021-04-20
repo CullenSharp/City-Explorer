@@ -15,18 +15,25 @@ class App extends React.Component {
       searchQuery: "",
       location: {},
       error: {},
+      isError: false,
     };
   }
 
   getLocation = async (e) => {
     try {
-    e.preventDefault();
+      e.preventDefault();
 
-    const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchQuery}&format=json`;
-    const resp = await axios.get(API);
-    this.setState({ location: resp.data[0] });
-    } catch(error){
-      this.setState({error});
+      const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchQuery}&format=json`;
+      const resp = await axios.get(API);
+      this.setState({
+        location: resp.data[0],
+        isError: false,
+      });
+    } catch (error) {
+      this.setState({
+        error,
+        isError: true,
+      });
     }
   };
 
@@ -59,35 +66,33 @@ class App extends React.Component {
             </Button>
           </Form>
         </Navbar>
-        {this.state.error.message && (
+        {this.state.isError === true && (
           <Card style={{ minWidth: "18rem" }}>
-          <Card.Body>
-            <Card.Title>
-              <FontAwesomeIcon
-                icon={faAngry}
-                style={{ color: "red" }}
-                className="mr-auto"
-              />
-              Ooops, we're having trouble with your request
-            </Card.Title>
-            <Card.Text>
-              {this.state.error.message}
-            </Card.Text>
-          </Card.Body>
-        </Card>
+            <Card.Body>
+              <Card.Title>
+                <FontAwesomeIcon
+                  icon={faAngry}
+                  style={{ color: "red" }}
+                  className="mr-auto"
+                />
+                Ooops, we're having trouble with your request
+              </Card.Title>
+              <Card.Text>{this.state.error.message}</Card.Text>
+            </Card.Body>
+          </Card>
         )}
-        {this.state.location.place_id && (
-            <Card style={{ minWidth: "18rem" }}>
-              <Card.Img variant="top" src={img_url} alt="Map" />
-              <Card.Body>
-                <Card.Title>{this.state.location.display_name}</Card.Title>
-                <Card.Text>
-                  lat: {this.state.location.lat}
-                  <br></br>
-                  lon: {this.state.location.lon}
-                </Card.Text>
-              </Card.Body>
-            </Card>
+        {this.state.location.place_id && this.state.isError === false && (
+          <Card style={{ minWidth: "18rem" }}>
+            <Card.Img variant="top" src={img_url} alt="Map" />
+            <Card.Body>
+              <Card.Title>{this.state.location.display_name}</Card.Title>
+              <Card.Text>
+                lat: {this.state.location.lat}
+                <br></br>
+                lon: {this.state.location.lon}
+              </Card.Text>
+            </Card.Body>
+          </Card>
         )}
       </Container>
     );
