@@ -15,7 +15,7 @@ class App extends React.Component {
     this.state = {
       searchQuery: "",
       location: {},
-      weather: {},
+      weather: [],
       error: {},
       isError: false,
     };
@@ -31,11 +31,10 @@ class App extends React.Component {
       const backendUrl = `http://localhost:3001/weather?lat=${resp.data[0].lat}&lon=${resp.data[0].lon}`;
       const weatherResp = await axios.get(backendUrl);
       console.log(weatherResp);
-      // console.log(this.State.weather);
 
       this.setState({
         location: resp.data[0],
-        weather: weatherResp,
+        weather: weatherResp.data,
         isError: false,
       });
     } catch (error) {
@@ -50,7 +49,7 @@ class App extends React.Component {
     const img_url = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.location.lat},${this.state.location.lon}&size=${window.innerWidth}x300&format=jpg&zoom=12`;
 
     return (
-      <Container flex>
+      <Container fluid>
         <Navbar
           bg="light"
           expand="lg"
@@ -103,12 +102,10 @@ class App extends React.Component {
               <Card.Text>
                 lat: {this.state.location.lat} lon: {this.state.location.lon}
                 <br></br>
-                <ListGroup> 
-                {
-                  this.state.weather.data.map(value => <Weather data={value}></Weather>)
-                }
-                </ListGroup>
               </Card.Text>
+              <ListGroup> 
+                  <Weather weather={this.state.weather}/>
+              </ListGroup>
             </Card.Body>
           </Card>
         )}
