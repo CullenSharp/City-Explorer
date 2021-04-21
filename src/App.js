@@ -4,10 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { faAngry } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Weather from "./Weather.js";
-
-//<FontAwesomeIcon icon={faAngry} style={{color: "red"}}/>
-//store for later
+import Weather from "./components/Weather.js";
+// import Movie from "./components/Movie.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +14,7 @@ class App extends React.Component {
       searchQuery: "",
       location: {},
       weather: [],
+      movies: [],
       error: {},
       isError: false,
     };
@@ -28,13 +27,16 @@ class App extends React.Component {
       const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchQuery}&format=json`;
       const resp = await axios.get(API);
 
-      const backendUrl = `http://localhost:3001/weather?lat=${resp.data[0].lat}&lon=${resp.data[0].lon}`;
-      const weatherResp = await axios.get(backendUrl);
-      console.log(weatherResp);
+      const weatherUrl = `http://localhost:3001/weather?lat=${resp.data[0].lat}&lon=${resp.data[0].lon}`;
+      const weatherResp = await axios.get(weatherUrl);
+
+      const moviesUrl =`http://localhost:3001/movies?city_name=${this.state.searchQuery}`;
+      const moviesResp = await axios.get(moviesUrl);
 
       this.setState({
         location: resp.data[0],
         weather: weatherResp.data,
+        movies: moviesResp.data,
         isError: false,
       });
     } catch (error) {
