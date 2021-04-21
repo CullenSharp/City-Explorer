@@ -40,3 +40,15 @@ Start time: 15:46
 Finish time: 16:37
 
 Actual time needed to complete: 59mins
+
+---
+
+Name of feature: Render Movies
+
+Estimate of time needed to complete: 1hr
+
+Start time: 15:11
+
+Finish time:
+
+Actual time needed to complete:
