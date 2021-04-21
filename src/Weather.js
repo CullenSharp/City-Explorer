@@ -9,7 +9,7 @@ class Weather extends React.Component {
             this.props.weather.map((day, index) =>
                 <ListGroup.Item key={index}>
                     <FontAwesomeIcon icon={faCloudSunRain} className="mr-sm-2"/>
-                    {`${day.date}: ${day.description}`}
+                    {`${day.date}: ${day.forcast}`}
                 </ListGroup.Item>
             )
         );
