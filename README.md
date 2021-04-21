@@ -7,6 +7,8 @@
 
 ![WRRC flow chart](src/assets/CityExplorerWRRC.JPG)
 
+![weather flow](src/assets/flow.png)
+
 An app that displays information about a city and its location when the user searches for a city by name.
 
 ## Getting Started
@@ -29,12 +31,12 @@ Thank you to JB Tellez, Tim Egorov, and Hunter Britten.
 
 ## Time Estimates
 
-Name of feature: Locations
+Name of feature: Weather api implementation
 
-Estimate of time needed to complete: 1hr
+Estimate of time needed to complete: 1:30hr
 
-Start time: 14:30
+Start time: 15:46
 
-Finish time:
+Finish time: 16:37
 
-Actual time needed to complete:
+Actual time needed to complete: 59mins
