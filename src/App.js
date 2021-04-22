@@ -1,11 +1,12 @@
 import React from "react";
-import { Container, Form, Button, Navbar} from "react-bootstrap";
+import { Container, Navbar} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import MapAndWeatherCard from "./components/MapAndWeatherCard";
 // import Weather from "./components/Weather";
 import Movies from "./components/Movies";
 import ErrorCard from "./components/ErrorCard";
+import SearchBar from './components/SearchBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -47,35 +48,14 @@ class App extends React.Component {
     }
   };
 
+  queryHandler = (e) => this.setState({ searchQuery: e.target.value });
+
   render() {
     const img_url = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.location.lat},${this.state.location.lon}&size=${window.innerWidth}x300&format=jpg&zoom=12`;
 
     return (
       <Container fluid>
-        <Navbar
-          bg="light"
-          expand="lg"
-          className="justify-content-md-space-between-mr-sm-2"
-        >
-          <Navbar.Brand>City Explorer</Navbar.Brand>
-          <Form inline>
-            <Form.Group>
-              <Form.Control
-                type="text"
-                placeholder="City Name"
-                className="mr-sm-2"
-                onChange={(e) => this.setState({ searchQuery: e.target.value })}
-              />
-            </Form.Group>
-            <Button
-              variant="outline-success"
-              type="submit"
-              onClick={this.getLocationData}
-            >
-              Explore
-            </Button>
-          </Form>
-        </Navbar>
+        <SearchBar clickHandler={this.getLocationData} queryHandler={this.queryHandler}/>
         {this.state.isError === true && (
           <ErrorCard error={this.state.error}/>
         )}
