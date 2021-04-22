@@ -2,10 +2,9 @@ import React from "react";
 import { Container, Form, Button, Card, Navbar, ListGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import { faAngry } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Weather from "./components/Weather.js";
 import Movies from "./components/Movies.js";
+import ErrorCard from "./components/ErrorCard.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -77,24 +76,7 @@ class App extends React.Component {
           </Form>
         </Navbar>
         {this.state.isError === true && (
-          <Card style={{ minWidth: "18rem" }}>
-            <Card.Img
-              variant="top"
-              src={`https://www.placecage.com/gif/${window.innerWidth}/300`}
-              alt="Error cage"
-            />
-            <Card.Body>
-              <Card.Title>
-                <FontAwesomeIcon
-                  icon={faAngry}
-                  style={{ color: "red" }}
-                  className="mr-sm-2"
-                />
-                Ooops, we're having trouble with your request
-              </Card.Title>
-              <Card.Text>{this.state.error.message}</Card.Text>
-            </Card.Body>
-          </Card>
+          <ErrorCard error={this.state.error}/>
         )}
         {this.state.location.place_id && this.state.isError === false && (
           <Card style={{ minWidth: "18rem" }}>
