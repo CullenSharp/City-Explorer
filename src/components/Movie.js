@@ -1,27 +1,20 @@
 import React from 'react';
-import CardColumns from 'react-bootstrap/CardColumns';
 import Card from 'react-bootstrap/Card';
 
-export default class Movies extends React.Component {
+export default class Movie extends React.Component {
   render() {
-    return(
-      <CardColumns>
-        {
-          this.props.movies.map((movie, index) =>
-            <Card key={index}>
-              <Card.Img src={movie.img_url || "https://www.placecage.com/c/500/281"} alt={movie.title}/>
-              <Card.Body>
-                <Card.Title>{movie.title}</Card.Title>
-                <Card.Text>{movie.overview}</Card.Text>
-                <Card.Text>Release date: {movie.released_on}</Card.Text>
-                <Card.Text>Average votes: {movie.average_votes}</Card.Text>
-                <Card.Text>Total votes: {movie.total_votes}</Card.Text>
-                <Card.Text>Popularity: {movie.popularity}</Card.Text>
-              </Card.Body>
-            </Card>
-          )
-        }
-      </CardColumns>
+    return (
+      <Card key={this.props.idx}>
+        <Card.Img src={this.props.movie.img_url} alt={this.props.movie.title}/>
+        <Card.Body>
+          <Card.Title>{this.props.movie.title}</Card.Title>
+          <Card.Text>{this.props.movie.overview}</Card.Text>
+          <Card.Text>Release date: {this.props.movie.released_on}</Card.Text>
+          <Card.Text>Average votes: {this.props.movie.average_votes}</Card.Text>
+          <Card.Text>Total votes: {this.props.movie.total_votes}</Card.Text>
+          <Card.Text>Popularity: {this.props.movie.popularity}</Card.Text>
+        </Card.Body>
+      </Card>
     );
   }
 }
