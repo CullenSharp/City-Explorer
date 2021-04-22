@@ -1,10 +1,11 @@
 import React from "react";
-import { Container, Form, Button, Card, Navbar, ListGroup } from "react-bootstrap";
+import { Container, Form, Button, Navbar} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import Weather from "./components/Weather.js";
-import Movies from "./components/Movies.js";
-import ErrorCard from "./components/ErrorCard.js";
+import MapAndWeatherCard from "./components/MapAndWeatherCard";
+// import Weather from "./components/Weather";
+import Movies from "./components/Movies";
+import ErrorCard from "./components/ErrorCard";
 
 class App extends React.Component {
   constructor(props) {
@@ -12,14 +13,14 @@ class App extends React.Component {
     this.state = {
       searchQuery: "",
       location: {},
-      weather: [],
+      forcasts: [],
       movies: [],
       error: {},
       isError: false,
     };
   }
 
-  getLocation = async (e) => {
+  getLocationData = async (e) => {
     try {
       e.preventDefault();
 
@@ -34,7 +35,7 @@ class App extends React.Component {
 
       this.setState({
         location: resp.data[0],
-        weather: weatherResp.data,
+        forcasts: weatherResp.data,
         movies: moviesResp.data,
         isError: false,
       });
@@ -69,7 +70,7 @@ class App extends React.Component {
             <Button
               variant="outline-success"
               type="submit"
-              onClick={this.getLocation}
+              onClick={this.getLocationData}
             >
               Explore
             </Button>
@@ -79,19 +80,13 @@ class App extends React.Component {
           <ErrorCard error={this.state.error}/>
         )}
         {this.state.location.place_id && this.state.isError === false && (
-          <Card style={{ minWidth: "18rem" }}>
-            <Card.Img variant="top" src={img_url} alt="Map" />
-            <Card.Body>
-              <Card.Title>{this.state.location.display_name}</Card.Title>
-              <Card.Text>
-                lat: {this.state.location.lat} lon: {this.state.location.lon}
-                <br></br>
-              </Card.Text>
-              <ListGroup> 
-                <Weather weather={this.state.weather}/>
-              </ListGroup>
-            </Card.Body>
-          </Card>
+          <MapAndWeatherCard
+            img_url={img_url} 
+            display_name={this.state.location.display_name}
+            lat={this.state.location.lat}
+            lon={this.state.location.lon}
+            forcasts={this.state.forcasts}
+          />
         )}
         {this.state.movies[0] && this.state.isError === false && (
           <>
@@ -110,3 +105,4 @@ class App extends React.Component {
 }
 
 export default App;
+
