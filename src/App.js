@@ -106,7 +106,7 @@ class App extends React.Component {
                 <br></br>
               </Card.Text>
               <ListGroup> 
-                  <Weather weather={this.state.weather}/>
+                <Weather weather={this.state.weather}/>
               </ListGroup>
             </Card.Body>
           </Card>
