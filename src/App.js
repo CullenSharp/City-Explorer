@@ -27,10 +27,10 @@ class App extends React.Component {
       const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchQuery}&format=json`;
       const resp = await axios.get(API);
 
-      const weatherUrl = `http://localhost:3001/weather?lat=${resp.data[0].lat}&lon=${resp.data[0].lon}`;
+      const weatherUrl = `https://city-exporer-api.herokuapp.com/weather/?lat=${resp.data[0].lat}&lon=${resp.data[0].lon}`;
       const weatherResp = await axios.get(weatherUrl);
 
-      const moviesUrl =`http://localhost:3001/movies?city_name=${this.state.searchQuery}`;
+      const moviesUrl =`https://city-exporer-api.herokuapp.com/movies/?city_name=${this.state.searchQuery}`;
       const moviesResp = await axios.get(moviesUrl);
 
       this.setState({
