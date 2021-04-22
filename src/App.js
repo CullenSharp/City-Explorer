@@ -5,7 +5,7 @@ import axios from "axios";
 import { faAngry } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Weather from "./components/Weather.js";
-// import Movie from "./components/Movie.js";
+import Movie from "./components/Movie.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -110,6 +110,17 @@ class App extends React.Component {
               </ListGroup>
             </Card.Body>
           </Card>
+        )}
+        {this.state.movies[0] && this.state.isError === false && (
+          <>
+            <Navbar 
+              bg="light"
+              expand="lg"
+            >
+              <h2>Movies realted to your search</h2>
+            </Navbar>
+            <Movie movies={this.state.movies}/>
+          </>
         )}
       </Container>
     );
