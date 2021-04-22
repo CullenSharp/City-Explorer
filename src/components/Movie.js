@@ -10,7 +10,7 @@ export default class Movies extends React.Component {
                 {
                     this.props.movies.map((movie, index) =>
                         <Card key={index}>
-                            <Card.Img src={movie.img_url} alt={movie.title}/>
+                            <Card.Img src={movie.img_url || "https://www.placecage.com/c/500/281"} alt={movie.title}/>
                             <Card.Body>
                                 <Card.Title>{movie.title}</Card.Title>
                                 <Card.Text>{movie.overview}</Card.Text>
