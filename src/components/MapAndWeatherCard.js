@@ -13,7 +13,7 @@ export default class MapAndWeatherCard extends React.Component {
             lat: {this.props.lat} lon: {this.props.lon}
             <br></br>
           </Card.Text>
-          <ListGroup> 
+          <ListGroup>
             <Weather forcasts={this.props.forcasts}/>
           </ListGroup>
         </Card.Body>
