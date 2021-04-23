@@ -5,8 +5,8 @@ import Weather from './Weather';
 export default class MapAndWeatherCard extends React.Component {
   render() {
     return(
-      <Card style={{ minWidth: "18rem" }}>
-        <Card.Img variant="top" src={this.props.img_url} alt="Map" />
+      <Card style={{ minWidth: '18rem' }}>
+        <Card.Img variant='top' src={this.props.img_url} alt='Map' />
         <Card.Body>
           <Card.Title>{this.props.display_name}</Card.Title>
           <Card.Text>
