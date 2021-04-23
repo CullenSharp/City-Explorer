@@ -1,11 +1,11 @@
 import React from "react";
-import { Container, Form, Button, Card, Navbar, ListGroup } from "react-bootstrap";
+import { Container, Navbar} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import { faAngry } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Weather from "./components/Weather.js";
-import Movie from "./components/Movie.js";
+import MapAndWeatherCard from "./components/MapAndWeatherCard";
+import Movies from "./components/Movies";
+import ErrorCard from "./components/ErrorCard";
+import SearchBar from './components/SearchBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,29 +13,29 @@ class App extends React.Component {
     this.state = {
       searchQuery: "",
       location: {},
-      weather: [],
+      forcasts: [],
       movies: [],
       error: {},
       isError: false,
     };
   }
 
-  getLocation = async (e) => {
+  getLocationData = async (e) => {
     try {
       e.preventDefault();
 
       const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchQuery}&format=json`;
       const resp = await axios.get(API);
 
-      const weatherUrl = `http://localhost:3001/weather?lat=${resp.data[0].lat}&lon=${resp.data[0].lon}`;
+      const weatherUrl = `https://city-exporer-api.herokuapp.com/weather/?lat=${resp.data[0].lat}&lon=${resp.data[0].lon}`;
       const weatherResp = await axios.get(weatherUrl);
 
-      const moviesUrl =`http://localhost:3001/movies?city_name=${this.state.searchQuery}`;
+      const moviesUrl =`https://city-exporer-api.herokuapp.com/movies/?city_name=${this.state.searchQuery}`;
       const moviesResp = await axios.get(moviesUrl);
 
       this.setState({
         location: resp.data[0],
-        weather: weatherResp.data,
+        forcasts: weatherResp.data,
         movies: moviesResp.data,
         isError: false,
       });
@@ -47,69 +47,25 @@ class App extends React.Component {
     }
   };
 
+  queryHandler = (e) => this.setState({ searchQuery: e.target.value });
+
   render() {
     const img_url = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.location.lat},${this.state.location.lon}&size=${window.innerWidth}x300&format=jpg&zoom=12`;
 
     return (
       <Container fluid>
-        <Navbar
-          bg="light"
-          expand="lg"
-          className="justify-content-md-space-between-mr-sm-2"
-        >
-          <Navbar.Brand>City Explorer</Navbar.Brand>
-          <Form inline>
-            <Form.Group>
-              <Form.Control
-                type="text"
-                placeholder="City Name"
-                className="mr-sm-2"
-                onChange={(e) => this.setState({ searchQuery: e.target.value })}
-              />
-            </Form.Group>
-            <Button
-              variant="outline-success"
-              type="submit"
-              onClick={this.getLocation}
-            >
-              Explore
-            </Button>
-          </Form>
-        </Navbar>
+        <SearchBar clickHandler={this.getLocationData} queryHandler={this.queryHandler}/>
         {this.state.isError === true && (
-          <Card style={{ minWidth: "18rem" }}>
-            <Card.Img
-              variant="top"
-              src={`https://www.placecage.com/gif/${window.innerWidth}/300`}
-              alt="Error cage"
-            />
-            <Card.Body>
-              <Card.Title>
-                <FontAwesomeIcon
-                  icon={faAngry}
-                  style={{ color: "red" }}
-                  className="mr-sm-2"
-                />
-                Ooops, we're having trouble with your request
-              </Card.Title>
-              <Card.Text>{this.state.error.message}</Card.Text>
-            </Card.Body>
-          </Card>
+          <ErrorCard error={this.state.error}/>
         )}
         {this.state.location.place_id && this.state.isError === false && (
-          <Card style={{ minWidth: "18rem" }}>
-            <Card.Img variant="top" src={img_url} alt="Map" />
-            <Card.Body>
-              <Card.Title>{this.state.location.display_name}</Card.Title>
-              <Card.Text>
-                lat: {this.state.location.lat} lon: {this.state.location.lon}
-                <br></br>
-              </Card.Text>
-              <ListGroup> 
-                  <Weather weather={this.state.weather}/>
-              </ListGroup>
-            </Card.Body>
-          </Card>
+          <MapAndWeatherCard
+            img_url={img_url} 
+            display_name={this.state.location.display_name}
+            lat={this.state.location.lat}
+            lon={this.state.location.lon}
+            forcasts={this.state.forcasts}
+          />
         )}
         {this.state.movies[0] && this.state.isError === false && (
           <>
@@ -119,7 +75,7 @@ class App extends React.Component {
             >
               <h2>Movies realted to your search</h2>
             </Navbar>
-            <Movie movies={this.state.movies}/>
+            <Movies movies={this.state.movies}/>
           </>
         )}
       </Container>
@@ -128,3 +84,4 @@ class App extends React.Component {
 }
 
 export default App;
+
