@@ -8,7 +8,7 @@ export default class Movies extends React.Component {
       <CardColumns>
         {
           this.props.movies.map((movie, idx) =>
-            <Movie movie={movie} idx={idx}/>
+            <Movie movie={movie} key={idx}/>
           )
         }
       </CardColumns>

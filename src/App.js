@@ -58,7 +58,7 @@ class App extends React.Component {
         {this.state.isError === true && (
           <ErrorCard error={this.state.error}/>
         )}
-        {this.state.location.place_id && this.state.isError === false && (
+        {this.state.location.place_id && !this.state.isError && (
           <MapAndWeatherCard
             img_url={img_url}
             display_name={this.state.location.display_name}
@@ -67,7 +67,7 @@ class App extends React.Component {
             forcasts={this.state.forcasts}
           />
         )}
-        {this.state.movies[0] && this.state.isError === false && (
+        {this.state.movies[0] && !this.state.isError &&
           <>
             <Navbar
               bg='light'
@@ -77,11 +77,10 @@ class App extends React.Component {
             </Navbar>
             <Movies movies={this.state.movies}/>
           </>
-        )}
+        }
       </Container>
     );
   }
 }
 
 export default App;
-
