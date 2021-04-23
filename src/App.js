@@ -1,17 +1,17 @@
-import React from "react";
-import { Container, Navbar} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
-import MapAndWeatherCard from "./components/MapAndWeatherCard";
-import Movies from "./components/Movies";
-import ErrorCard from "./components/ErrorCard";
+import React from 'react';
+import { Container, Navbar} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import MapAndWeatherCard from './components/MapAndWeatherCard';
+import Movies from './components/Movies';
+import ErrorCard from './components/ErrorCard';
 import SearchBar from './components/SearchBar';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchQuery: "",
+      searchQuery: ',
       location: {},
       forcasts: [],
       movies: [],
@@ -60,7 +60,7 @@ class App extends React.Component {
         )}
         {this.state.location.place_id && this.state.isError === false && (
           <MapAndWeatherCard
-            img_url={img_url} 
+            img_url={img_url}
             display_name={this.state.location.display_name}
             lat={this.state.location.lat}
             lon={this.state.location.lon}
@@ -69,9 +69,9 @@ class App extends React.Component {
         )}
         {this.state.movies[0] && this.state.isError === false && (
           <>
-            <Navbar 
-              bg="light"
-              expand="lg"
+            <Navbar
+              bg='light'
+              expand='lg'
             >
               <h2>Movies realted to your search</h2>
             </Navbar>
