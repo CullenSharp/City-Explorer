@@ -3,7 +3,6 @@ import { Container, Navbar} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import MapAndWeatherCard from "./components/MapAndWeatherCard";
-// import Weather from "./components/Weather";
 import Movies from "./components/Movies";
 import ErrorCard from "./components/ErrorCard";
 import SearchBar from './components/SearchBar';
